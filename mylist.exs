@@ -51,4 +51,9 @@ defmodule MyList do
     def span([_head|tail], to) do
         span(tail, to)
     end
+
+    def primes(n) do
+        range = span(2, n)
+        range -- (lc a inlist range, b inlist range, a <= b, a * b <= n, do: a * b)
+    end
 end
