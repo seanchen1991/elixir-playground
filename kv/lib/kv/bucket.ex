@@ -19,8 +19,8 @@ defmodule KV.Bucket do
     Returns the current value of `key`, if `key` exists
     """
     def delete(bucket, key) do
-        Agent.get_and_update(bucket, fn dict ->
-            Map.pop(dict, key)
-        end
-    end
+         Agent.get_and_update(bucket, fn dict ->
+             Map.pop(dict, key)
+         end)
+     end
 end
