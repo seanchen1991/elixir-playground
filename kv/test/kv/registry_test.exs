@@ -29,7 +29,7 @@ defmodule KV.RegistryTest do
 
         # Kill the bucket and wait for the notification
         Process.exit(bucket, :shutdown)
-        assert_receive({:exit, "shopping", ^bucket})
+        assert_receive {:EXIT, "shopping", ^bucket}
         assert KV.Registry.lookup(registry, "shopping") == :error
     end
 end
