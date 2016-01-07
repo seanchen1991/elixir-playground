@@ -1,6 +1,10 @@
 defmodule MarketApi.MarketView do
   use MarketApi.Web, :view
 
+  attributes [:id, :name, :phone]
+
+  has_many :products, link: "/markets/:id/products"
+
   def render("index.json", %{markets: markets}) do
     %{data: render_many(markets, MarketApi.MarketView, "market.json")}
   end
