@@ -9,7 +9,7 @@ use Mix.Config
 config :market_api, MarketApi.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "Nhw+UKvx1055K2yM/A6ZGp6ovn9v2RJ6OYoia+UKEPqcof1A/acULirGREpgF1Zg",
+  secret_key_base: "e49Yv0qphVVAF/yqCa8tM17921SO+QOIDR+2lm6VcL1FKy0XdrbJBKMVbMUWwTug",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: MarketApi.PubSub,
            adapter: Phoenix.PubSub.PG2]

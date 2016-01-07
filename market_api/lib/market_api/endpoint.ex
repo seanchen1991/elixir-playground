@@ -33,7 +33,7 @@ defmodule MarketApi.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_market_api_key",
-    signing_salt: "cLYWedhC"
+    signing_salt: "1sO1b6zh"
 
   plug MarketApi.Router
 end
