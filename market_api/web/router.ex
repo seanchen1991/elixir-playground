@@ -20,7 +20,13 @@ defmodule MarketApi.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MarketApi do
-  #   pipe_through :api
-  # end
+  scope "/api", MarketApi do
+    pipe_through :api
+
+    resources "/markets", MarketController, except: [:new, :edit] do
+        resources "/products", ProductController, only: [:index]
+    end
+
+    resources "/products", ProductController, except: [:new, :edit]
+  end
 end
