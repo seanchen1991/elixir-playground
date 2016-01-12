@@ -1,28 +1,50 @@
 defmodule Rumbl.Video do
-  use Rumbl.Web, :model
+    use Rumbl.Web, :model
 
-  schema "videos" do
-    field :url, :string
-    field :title, :string
-    field :description, :string
-    belongs_to :user, Rumbl.User
-    belongs_to :category, Rumbl.Category
+    schema "videos" do
+        field :url, :string
+        field :title, :string
+        field :description, :string
+        field :slug, :string
+        belongs_to :user, Rumbl.User
+        belongs_to :category, Rumbl.Category
 
-    timestamps
-  end
+        timestamps
+    end
 
-  @required_fields ~w(url title description)
-  @optional_fields ~w(category_id)
+    @required_fields ~w(url title description)
+    @optional_fields ~w(category_id)
 
-  @doc """
-  Creates a changeset based on the `model` and `params`.
+    defimpl Phoenix.Param, for: Rumbl.Video do
+        def to_param(%{slug: slug, id: id}) do
+            "#{id}-#{slug}"
+        end
+    end
 
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
-  """
-  def changeset(model, params \\ :empty) do
-    model
-    |> cast(params, @required_fields, @optional_fields)
-    |> foreign_key_constraint(:category_id)
-  end
+    @doc """
+    Creates a changeset based on the `model` and `params`.
+
+    If no params are provided, an invalid changeset is returned
+    with no validation performed.
+    """
+    def changeset(model, params \\ :empty) do
+        model
+        |> cast(params, @required_fields, @optional_fields)
+        |> slugify_title()
+        |> assoc_constraint(:category)
+    end
+
+    defp slugify_title(changeset) do
+        if title = get_change(changeset, :title) do
+            put_change(changeset, :slug, slugify(title))
+        else
+            changeset
+        end
+    end
+
+    defp slugify(str) do
+        str
+        |> String.downcase()
+        |> String.replace(~r/[^\w-]+/, "-")
+    end
 end
