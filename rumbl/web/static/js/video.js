@@ -31,7 +31,7 @@ let Video = {
         msgContainer.addEventListener("click", e => {
             e.preventDefault()
             let seconds = e.target.getAttribute("data-seek") ||
-                          e.target.parentNode.getAttribute("data-seek")\
+                          e.target.parentNode.getAttribute("data-seek")
             if (!seconds) { return }
             Player.seekTo(seconds)
         })
