@@ -59,7 +59,6 @@ defmodule Rumbl.Auth do
 
     defp put_current_user(conn, user) do
         token = Phoenix.Token.sign(conn, "user socket", user.id)
-
         conn
         |> assign(:current_user, user)
         |> assign(:user_token, token)
